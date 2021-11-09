@@ -1,4 +1,4 @@
-## THIS IS THE FRONT END HIRING TEST FROM AIRCALL BY THIAGO
+## THIS IS THE FRONTEND HIRING TEST FROM AIRCALL BY THIAGO
 
 I'm doing this test just for learning purposes, to challenge myself, test and improve my skills
 
