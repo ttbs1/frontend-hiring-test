@@ -10,8 +10,8 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" exact element={ <Start/> } />
-                <Route path="/calls" exact component={ <Calls/> } />
-                <Route path="/call/:id" exact component={ <Call/> } />
+                <Route path="/calls" exact element={ <Calls/> } />
+                <Route path="/call/:id" exact element={ <Call/> } />
             </Routes>
         </BrowserRouter>
     );

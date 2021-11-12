@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export async function authUser() {
-    const url = `https://frontend-test-api.aircall.io`;
+const url = `https://frontend-test-api.aircall.io`;
 
+export async function authUser() {
     try {
         const response = await axios.post(url + '/auth/login', {
             username: 'fred',
@@ -19,3 +19,18 @@ export async function authUser() {
         return null;
     }
 }
+
+export async function getCalls(access_token) {
+    try{
+        let response = await axios.get(url + '/calls?offset=5&limit=10' , { 'headers': { 'Authorization': "Bearer "+ access_token }});
+        
+        return {
+            nodes: response.data.nodes,
+            totalCount: response.data.totalCount,
+            hasNextPage: response.data.hasNextPage
+        }
+    } catch(error) {
+        console.log(error);
+        return null;
+    }
+};
