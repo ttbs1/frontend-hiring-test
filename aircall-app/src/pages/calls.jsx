@@ -8,15 +8,12 @@ export function Calls() {
 
 
     useEffect(() => {
-        var user = JSON.parse(sessionStorage.user_data);
-        getCalls(user).then(response => setCalls({
+        getCalls().then(response => setCalls({
             nodes: response.nodes,
             totalCount: response.totalCount,
             hasNextPage: response.hasNextPage
         }))
     }, []);
-
-    console.log(calls.nodes)
 
     return (
         <div className="container-fluid d-flex justify-content-center">
