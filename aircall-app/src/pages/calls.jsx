@@ -4,7 +4,7 @@ import "./calls.css"
 //import { useNavigate } from "react-router-dom";
 
 export function Calls() {
-    const [calls, setCalls] = useState({});
+    const [calls, setCalls] = useState([]);
 
 
     useEffect(() => {
