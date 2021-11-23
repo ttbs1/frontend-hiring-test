@@ -2,7 +2,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import {Start} from './pages/start'
-import {Calls} from './pages/calls';
+import Calls from './pages/calls';
 import {Call} from './pages/call';
 
 function App() {

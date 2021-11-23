@@ -1,32 +1,55 @@
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { getCalls } from "../util/api-con";
-import "./calls.css"
+import { CallsList } from "../components/CallsList";
+import { Pagination } from "../components/Pagination";
+import "./calls.css";
 //import { useNavigate } from "react-router-dom";
 
-export function Calls() {
-    const [calls, setCalls] = useState([]);
+export default class Calls extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            page: 1,
+            pages: 0,
+            calls: []
+        };
 
+        this.handleClick = this.handleClick.bind(this);
+    }
 
-    useEffect(() => {
-        getCalls().then(response => setCalls({
-            nodes: response.nodes,
-            totalCount: response.totalCount,
-            hasNextPage: response.hasNextPage
-        }))
-    }, []);
+    componentDidMount() {
+        getCalls().then(response => {
+            let calls = response;
+            this.setState({ calls, pages: response.totalCount / 10 });
+        });
+    }
 
-    return (
-        <div className="container-fluid d-flex justify-content-center">
-            <div className="calls col-10">
-                {calls.nodes.map((call) => 
-                    <div className="call" key={call.id}>
-                        <p>From: {call.from} </p>
-                        <p>To: {call.to}</p>
-                        <p>Via :{call.via}</p>
-                    </div>
-                )}
-                {calls.totalCount}
+    handleClick(index, e) {
+
+        console.log(index)
+    }
+
+    render() {
+        return (
+            <div className="container-fluid">
+                <div className="container-fluid d-flex justify-content-center">
+                    {this.state.calls && this.state.calls.nodes &&
+                        <CallsList calls={this.state.calls} callback="Loading calls..."></CallsList>}
+                </div>
+
+                <nav aria-label="Page navigation">
+                    <ul className="pagination justify-content-center">
+                        <li className="page-item"><button className="page-link" onClick={(e) => this.handleClick(0, e)}> &laquo; </button></li>
+                        { 
+                            new Array(Math.ceil(this.state.pages)).fill(0).map((_, index) => (
+                                <li className="page-item"><button className="page-link" onClick={(e) => this.handleClick(index+1, e)} key={index+1}>{index+1}</button></li>
+                            ))
+                        }
+                        <li className="page-item"><button className="page-link" onClick={(e) => this.handleClick(0, e)}> &raquo; </button></li>
+                    </ul>
+                </nav>
             </div>
-        </div>
-    )
+        );
+    }
 }
