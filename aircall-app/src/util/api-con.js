@@ -10,8 +10,14 @@ axios.interceptors.response.use(function (response) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     if (error.response.status === 401) {
-        await refresh_token(error);
-        return getCalls();
+        await refresh_token();
+        return new Promise((resolve, reject) => {
+            getCalls().then(response => {
+                resolve(response);
+            }).catch((error) => {
+                reject(error);
+            })
+        });
     }
     return Promise.reject(error);
 });
@@ -39,16 +45,17 @@ export async function refresh_token(error) {
     try {
         let user = JSON.parse(sessionStorage.user_data);
 
-        await fetch(url+"/auth/refresh-token-v2",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": "Bearer "+user.refresh_token
-            }
-        }).then(resp => resp.json()).then(data => {
-            sessionStorage.setItem("user_data", JSON.stringify(data))
-        })
+        await fetch(url + "/auth/refresh-token-v2",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Authorization": "Bearer " + user.refresh_token
+                }
+            }).then(resp => resp.json()).then(data => {
+                sessionStorage.setItem("user_data", JSON.stringify(data));
+                return data;
+            })
     } catch (error) {
         console.log(error);
         return null;
@@ -60,14 +67,14 @@ export async function getCalls() {
         let user = JSON.parse(sessionStorage.user_data);
         console.log(user)
         let response = await axios.get(url + '/calls?offset=1&limit=10', { headers: { 'Authorization': "Bearer " + user.access_token } });
-        //refresh_token();
-        return {
+
+        return response.status === 200 ? {
             nodes: response.data.nodes,
             totalCount: response.data.totalCount,
             hasNextPage: response.data.hasNextPage
-        }
+        } : response;
     } catch (error) {
-        //console.log(error);
+        console.log(error);
         return null;
     }
 };
