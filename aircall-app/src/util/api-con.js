@@ -11,8 +11,12 @@ axios.interceptors.response.use(function (response) {
     // Do something with response error
     if (error.response.status === 401) {
         await refresh_token();
+        
+        error.config.__isRetryRequest = true;
+        let user = JSON.parse(sessionStorage.user_data);
+        error.config.headers.Authorization = 'Bearer ' + user.access_token;
         return new Promise((resolve, reject) => {
-            getCalls().then(response => {
+            axios(error.config).then(response => {
                 resolve(response);
             }).catch((error) => {
                 reject(error);
@@ -41,7 +45,7 @@ export async function authUser() {
     }
 }
 
-export async function refresh_token(error) {
+async function refresh_token(error) {
     try {
         let user = JSON.parse(sessionStorage.user_data);
 
@@ -67,11 +71,11 @@ export async function getCalls(index, offset) {
         let user = JSON.parse(sessionStorage.user_data);
         let response = await axios.get(url + `/calls?offset=${index}&limit=${offset}`, { headers: { 'Authorization': "Bearer " + user.access_token } });
 
-        return response.status === 200 ? {
+        return {
             nodes: response.data.nodes,
             totalCount: response.data.totalCount,
             hasNextPage: response.data.hasNextPage
-        } : response;
+        } ;
     } catch (error) {
         console.log(error);
         return null;

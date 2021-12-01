@@ -13,7 +13,6 @@ export default class Calls extends Component {
         this.state = {
             page: 1,
             offset: 10,
-            pages: 0,
             calls: []
         };
 
@@ -23,7 +22,7 @@ export default class Calls extends Component {
     componentDidMount() {
         getCalls(0, this.state.offset).then(response => {
             let calls = response;
-            this.setState({ calls, pages: response.totalCount / 10 });
+            this.setState({ calls });
         });
     }
 
@@ -33,8 +32,7 @@ export default class Calls extends Component {
             let calls = response;
             this.setState({ 
                 calls,
-                page: index, 
-                pages: response.totalCount / 10 
+                page: index
             });
         });
     }
