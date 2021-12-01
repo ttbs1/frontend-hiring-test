@@ -62,11 +62,10 @@ export async function refresh_token(error) {
     }
 }
 
-export async function getCalls() {
+export async function getCalls(index, offset) {
     try {
         let user = JSON.parse(sessionStorage.user_data);
-        console.log(user)
-        let response = await axios.get(url + '/calls?offset=1&limit=10', { headers: { 'Authorization': "Bearer " + user.access_token } });
+        let response = await axios.get(url + `/calls?offset=${index}&limit=${offset}`, { headers: { 'Authorization': "Bearer " + user.access_token } });
 
         return response.status === 200 ? {
             nodes: response.data.nodes,

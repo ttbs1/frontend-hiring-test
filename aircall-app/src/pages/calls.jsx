@@ -4,6 +4,7 @@ import { getCalls } from "../util/api-con";
 import { CallsList } from "../components/CallsList";
 //import { Pagination } from "../components/Pagination";
 import "./calls.css";
+import { Pagination } from "../components/Pagination";
 //import { useNavigate } from "react-router-dom";
 
 export default class Calls extends Component {
@@ -11,6 +12,7 @@ export default class Calls extends Component {
         super(props);
         this.state = {
             page: 1,
+            offset: 10,
             pages: 0,
             calls: []
         };
@@ -19,15 +21,22 @@ export default class Calls extends Component {
     }
 
     componentDidMount() {
-        console.log(getCalls().then(response => {
+        getCalls(0, this.state.offset).then(response => {
             let calls = response;
-            console.log(calls)
             this.setState({ calls, pages: response.totalCount / 10 });
-        }));
+        });
     }
 
-    handleClick(index, e) {
-        console.log(index)
+    handleClick(index) {
+        let offset = this.state.offset;
+        getCalls((index-1)*offset, offset).then(response => {
+            let calls = response;
+            this.setState({ 
+                calls,
+                page: index, 
+                pages: response.totalCount / 10 
+            });
+        });
     }
 
     render() {
@@ -37,18 +46,8 @@ export default class Calls extends Component {
                     {this.state.calls && this.state.calls.nodes &&
                         <CallsList calls={this.state.calls} callback="Loading calls..."></CallsList>}
                 </div>
-
-                <nav aria-label="Page navigation">
-                    <ul className="pagination justify-content-center">
-                        <li className="page-item"><button className="page-link" onClick={(e) => this.handleClick(0, e)} > &laquo; </button></li>
-
-                        {new Array(Math.ceil(this.state.pages)).fill(0).map((_, index) => (
-                            <li className="page-item" key={index + 1}><button className="page-link" onClick={(e) => this.handleClick(index + 1, e)}>{index + 1}</button></li>
-                        ))}
-                        
-                        <li className="page-item"><button className="page-link" onClick={(e) => this.handleClick(0, e)} > &raquo; </button></li>
-                    </ul>
-                </nav>
+                <Pagination count={this.state.calls.totalCount} callback={this.handleClick}></Pagination>
+                {this.state.calls.totalCount}
             </div>
         );
     }
