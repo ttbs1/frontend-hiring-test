@@ -19,10 +19,10 @@ export function Start() {
     }, [user]);
 
     let navigate = useNavigate();
-    navigate("/calls");
 
     return (
         <>
+            { navigate("/calls") }
         </>
     )
 }

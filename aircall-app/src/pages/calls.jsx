@@ -2,10 +2,9 @@
 import React, { Component } from "react";
 import { getCalls } from "../util/api-con";
 import { CallsList } from "../components/CallsList";
-//import { Pagination } from "../components/Pagination";
-import "./calls.css";
 import { Pagination } from "../components/Pagination";
 //import { useNavigate } from "react-router-dom";
+import "./calls.css";
 
 export default class Calls extends Component {
     constructor(props) {
@@ -28,9 +27,9 @@ export default class Calls extends Component {
 
     handleClick(index) {
         let offset = this.state.offset;
-        getCalls((index-1)*offset, offset).then(response => {
+        getCalls((index - 1) * offset, offset).then(response => {
             let calls = response;
-            this.setState({ 
+            this.setState({
                 calls,
                 page: index
             });
@@ -41,8 +40,10 @@ export default class Calls extends Component {
         return (
             <div className="container-fluid">
                 <div className="container-fluid d-flex justify-content-center">
-                    {this.state.calls && this.state.calls.nodes &&
-                        <CallsList calls={this.state.calls} callback="Loading calls..."></CallsList>}
+                    {
+                        this.state.calls && this.state.calls.nodes &&
+                        <CallsList calls={this.state.calls} callback="Loading calls..."></CallsList>
+                    }
                 </div>
                 <Pagination count={this.state.calls.totalCount} callback={this.handleClick}></Pagination>
                 {this.state.calls.totalCount}

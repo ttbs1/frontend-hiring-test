@@ -11,7 +11,7 @@ function App() {
             <Routes>
                 <Route path="/" exact element={ <Start/> } />
                 <Route path="/calls" exact element={ <Calls/> } />
-                <Route path="/call/:id" exact element={ <Call/> } />
+                <Route path="/calls/:id" exact element={ <Call/> } />
             </Routes>
         </BrowserRouter>
     );
