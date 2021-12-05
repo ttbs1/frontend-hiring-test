@@ -1,9 +1,7 @@
-//import { useState, useEffect } from "react";
 import React, { Component } from "react";
 import { getCalls } from "../util/api-con";
 import { CallsList } from "../components/CallsList";
 import { Pagination } from "../components/Pagination";
-//import { useNavigate } from "react-router-dom";
 import "./calls.css";
 
 export default class Calls extends Component {
@@ -38,16 +36,16 @@ export default class Calls extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="container-fluid d-flex justify-content-center">
+            <>
+                <div className="container-fluid d-flex justify-content-center mt-3 mb-3">
                     {
                         this.state.calls && this.state.calls.nodes &&
                         <CallsList calls={this.state.calls} callback="Loading calls..."></CallsList>
                     }
                 </div>
+                
                 <Pagination count={this.state.calls.totalCount} callback={this.handleClick}></Pagination>
-                {this.state.calls.totalCount}
-            </div>
+            </>
         );
     }
 }

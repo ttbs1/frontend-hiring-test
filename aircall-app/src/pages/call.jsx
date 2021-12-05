@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getCall } from "../util/api-con";
 
 export function Call() {
-    let { id } = useParams();
+    var { id } = useParams();
     const [call, setCall] = useState({});
 
     useEffect(() => {
@@ -23,7 +23,6 @@ export function Call() {
 
     return (
         <div className="container">
-            <p></p>
             <p>{id}</p>
             <p>Duration: {call.duration}</p>
             <p>Is archived: {call.is_archived}</p>

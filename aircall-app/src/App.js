@@ -1,19 +1,21 @@
 import './App.css';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import {Start} from './pages/start'
+import { Start } from './pages/start'
 import Calls from './pages/calls';
-import {Call} from './pages/call';
+import { Call } from './pages/call';
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" exact element={ <Start/> } />
-                <Route path="/calls" exact element={ <Calls/> } />
-                <Route path="/calls/:id" exact element={ <Call/> } />
-            </Routes>
-        </BrowserRouter>
+        <div className="container-fluid" style={{ backgroundColor: "#fdfdfc", minHeight: "100vh" }}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" exact element={<Start />} />
+                    <Route path="/calls" exact element={<Calls />} />
+                    <Route path="/calls/:id" exact element={<Call />} />
+                </Routes>
+            </BrowserRouter>
+        </div>
     );
 }
 
