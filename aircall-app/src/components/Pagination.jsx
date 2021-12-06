@@ -9,14 +9,12 @@ export function Pagination(props) {
     var handleClick = props.callback;
 
     return (
-        <div className="overflow">
-            <nav aria-label="page navigation">
-                <ul className="pagination justify-content-center" style={{ margin: 0, padding: 0, textAlign:"end" }}>
+            <nav aria-label="Page navigation" className="d-flex overflow">
+                <ul className="pagination justify-content-center">
                     <li className="page-item"><button className="page-link" > &laquo; </button></li>
                     {index.map((x) => <li className="page-item" key={x + 1}><button className="page-link" onClick={() => handleClick(x + 1, "")}>{x + 1}</button></li>)}
                     <li className="page-item"><button className="page-link" > &raquo; </button></li>
                 </ul>
             </nav>
-        </div>
     );
 }

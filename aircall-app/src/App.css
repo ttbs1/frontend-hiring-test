@@ -134,6 +134,5 @@ a {
 
 .overflow {
   overflow: auto;
-  padding: 0 !important;
-  margin: 0 !important;
+  margin: 0 2.5em 0 2.5em;
 }
