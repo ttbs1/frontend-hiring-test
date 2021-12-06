@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { getCalls } from "../util/api-con";
 import { CallsList } from "../components/CallsList";
 import { Pagination } from "../components/Pagination";
-import "./calls.css";
 
 export default class Calls extends Component {
     constructor(props) {
@@ -36,8 +35,8 @@ export default class Calls extends Component {
 
     render() {
         return (
-            <>
-                <div className="container-fluid d-flex justify-content-center mt-3 mb-3">
+            <div style={{marginBottom: "65px"}}>
+                <div className="container-fluid d-flex justify-content-center">
                     {
                         this.state.calls && this.state.calls.nodes &&
                         <CallsList calls={this.state.calls} callback="Loading calls..."></CallsList>
@@ -45,7 +44,7 @@ export default class Calls extends Component {
                 </div>
                 
                 <Pagination count={this.state.calls.totalCount} callback={this.handleClick}></Pagination>
-            </>
+            </div>
         );
     }
 }

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getCall } from "../util/api-con";
 
 export function Call() {
-    var { id } = useParams();
+    const { id } = useParams();
     const [call, setCall] = useState({});
 
     useEffect(() => {
@@ -19,19 +19,19 @@ export function Call() {
             created_at: response.created_at,
             notes: response.notes
         }))
-    }, []);
+    }, [id]);
 
     return (
-        <div className="container">
-            <p>{id}</p>
-            <p>Duration: {call.duration}</p>
-            <p>Is archived: {call.is_archived}</p>
-            <p>From: {call.from}</p>
-            <p>To: {call.to}</p>
-            <p>Direction: {call.direction}</p>
-            <p>Call Type: {call.call_type}</p>
-            <p>Via: {call.via}</p>
-            <p>Created at: {call.created_at}</p>
+        <div className="container call-detail">
+            <p><span className="fw-bold">{id}</span></p>
+            <p><span className="fw-bold">Duration:</span> {call.duration}</p>
+            <p><span className="fw-bold">Is archived:</span> {call.is_archived}</p>
+            <p><span className="fw-bold">From:</span> {call.from}</p>
+            <p><span className="fw-bold">To:</span> {call.to}</p>
+            <p><span className="fw-bold">Direction:</span> {call.direction}</p>
+            <p><span className="fw-bold">Call Type:</span> {call.call_type}</p>
+            <p><span className="fw-bold">Via:</span> {call.via}</p>
+            <p><span className="fw-bold">Created</span> at: {call.created_at}</p>
         </div>
     )
 }
