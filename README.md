@@ -2,6 +2,12 @@
 
 I'm doing this test just for learning purposes, to challenge myself, test and improve my skills
 
+## How to run it locally
+
+In the project directory, using npm, you can run
+`npm start` and open [http://localhost:3000](http://localhost:3000) 
+to view it in your browser.
+
 # :phone: Phone
 
 This test is a part of our hiring process at Aircall for the Frontend Engineer position. It should take you between 3 to 5 hours, depending on your experience, to implement the minimal version. But we thought about a few bonuses, so feel free to spend some time on them if you want.
