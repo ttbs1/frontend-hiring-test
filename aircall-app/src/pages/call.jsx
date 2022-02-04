@@ -31,7 +31,7 @@ export function Call() {
             <p><span className="fw-bold">Direction:</span> {call.direction}</p>
             <p><span className="fw-bold">Call Type:</span> {call.call_type}</p>
             <p><span className="fw-bold">Via:</span> {call.via}</p>
-            <p><span className="fw-bold">Created</span> at: {call.created_at}</p>
+            <p><span className="fw-bold">Created at:</span> {call.created_at}</p>
         </div>
     )
 }
